@@ -28,6 +28,7 @@ class TopPagesByVisits extends \Piwik\Plugin
 	
 	public function getJsFiles(&$jsFiles)
 	{
+		//$jsFiles[] = 'plugins/TopPagesByVisits/javascripts/toppagesbyvisits.js';
 		$jsFiles[] = 'plugins/TopPagesByVisits/javascripts/tablesorter.js';
 	}
 	

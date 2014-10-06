@@ -1,6 +1,6 @@
 /* jQuery sorted voting system */
 /* Provides automatic sorting and voting on elements
- * © Pez Cuckow 2012+
+ * Â© Pez Cuckow 2012+
  * email@pezcuckow.com
  * Please keep attribution, including use of modified or selected code.
  * Twitter: @Pezmc
@@ -8,13 +8,64 @@
 $(function() {
     var updating = false;
 
-    function voteClick(button, up, table) {
+    var refreshWidget = function (element, refreshAfterXSecs) {
+        // if the widget has been removed from the DOM, abort
+        if ($(element).parent().length == 0) {
+            return;
+        }
+
+        var ajaxRequest = new ajaxHelper();
+        ajaxRequest.addParams({
+            module: 'API',
+            method: 'TopPagesByVisits.getMostVisitedPages',
+            format: 'json',
+            lastMinutes: 20
+        }, 'get');
+        ajaxRequest.setFormat('json');
+        ajaxRequest.setCallback(function (data) {
+            $.each( data, function( index, value ){
+                $("#"+value['idaction_url']).find(".number").text(value['number']);
+            });
+
+            // schedule another request
+            setTimeout(function () { refreshWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
+        });
+        ajaxRequest.send(true);
+        voteClick($('#table'));
+    };
+
+    var exports = require("piwik/TopPagesByVisits");
+    exports.initTopPagesByVisitsWidget = function (refreshInterval) {
+        var ajaxRequest = new ajaxHelper();
+        ajaxRequest.addParams({
+            module: 'API',
+            method: 'TopPagesByVisits.getMostVisitedPages',
+            format: 'json',
+            lastMinutes: 20
+        }, 'get');
+        ajaxRequest.setFormat('json');
+        ajaxRequest.setCallback(function (data) {
+        	i=1;
+            $.each( data, function( index, value ){
+                $( "tbody" ).append( "<tr id=\""+value['idaction_url']+"\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+value['idaction_url']+"</td><td>"+value['time'].split(".")[0]+":"+value['time'].split(".")[1].substring(0,2)+" min.</td></tr>" );
+                i++;
+            });
+            $('.demo').each(function() {
+                var $this = $(this),
+                   refreshAfterXSecs = refreshInterval;
+                setTimeout(function() { refreshWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
+            });
+        });
+        ajaxRequest.send(true);
+     };
+
+    function voteClick(table) {
         if (!updating) {
             updating = true;
             $("html").trigger('startUpdate');
-            var cell = $('td:nth-child(2)', $(button).parent().parent());
-            if (up) cell.text((parseInt(cell.text()) + 1)); //add ajax
-            else cell.text((parseInt(cell.text()) - 1)); //add ajax etc here
+            //var cell = $('td:nth-child(2)', $(button).parent().parent());
+            //if (up) cell.text((parseInt(cell.text()) + 1)); //add ajax
+            //else cell.text((parseInt(cell.text()) - 1)); //add ajax etc here
             sortTable(table, function() {
                 updating = false;
                 $("html").trigger('stopUpdate');
@@ -110,7 +161,7 @@ $(function() {
     function sortTable(currentTable, callback) {
         var newTable = currentTable.clone();
         newTable.hide();
-        $('.demo').append(newTable);
+        $('.demsso').append(newTable);
 
         //What one are we ordering on?
         var sortIndex = $(newTable).find(".anim\\:sort").index();
@@ -325,12 +376,12 @@ jQuery.fn.sortElements = (function() {
             up: {
                 left: -25,
                 // Move left
-                backgroundColor: '#004400' // Dullish green
+                backgroundColor: '#228b22' // Dullish green
             },
             down: {
                 left: 25,
                 // Move right
-                backgroundColor: '#550000' // Dullish red
+                backgroundColor: '#ff0000' // Dullish red
             },
             fresh: {
                 left: 0,
