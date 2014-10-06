@@ -1,0 +1,16 @@
+{
+ "name": "TopPagesByVisits",
+ "version": "0.1.0",
+ "description": "Top pages by visits",
+ "theme": false,
+ "require": {
+    "piwik": ">=2.7.0"
+ },
+ "authors": [
+     {
+         "name": "Piwik",
+         "email": "",
+         "homepage": ""
+     }
+ ]
+}
