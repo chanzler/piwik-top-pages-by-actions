@@ -53,10 +53,10 @@ class API extends \Piwik\Plugin\API {
 				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . "
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time
 				AND       idsite = ?
-				GROUP BY idaction_url ORDER BY number asc limit 10";
+				GROUP BY idaction_url ORDER BY number desc limit 10";
 
         $pages = \Piwik\Db::fetchAll($sql, array(
-            $lastMinutes+($timeZoneDiff/60)+10000, $idSite
+            $lastMinutes+($timeZoneDiff/60), $idSite
         ));
         return $pages;
     }

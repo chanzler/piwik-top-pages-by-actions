@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshWidget = function (element, refreshAfterXSecs) {
+    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -28,7 +28,7 @@ $(function() {
             });
 
             // schedule another request
-            setTimeout(function () { refreshWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
+            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
         voteClick($('#table'));
@@ -53,7 +53,7 @@ $(function() {
             $('.demo').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);
