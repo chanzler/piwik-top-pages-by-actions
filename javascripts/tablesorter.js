@@ -62,7 +62,8 @@ $(function() {
                 if (name == "null") {
                 	name = value['url'] 
                 }
-            	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                if(i <= numberOfEntries)
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
