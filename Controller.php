@@ -29,7 +29,7 @@ class Controller extends \Piwik\Plugin\Controller
     }
     public function index()
     {
-		$settings = new Settings('TopPagexByVisits');
+		$settings = new Settings('TopPagesByVisits');
 
         $view = new View('@TopPagesByVisits/index.twig');
         $this->setBasicVariablesView($view);

@@ -47,7 +47,7 @@ class API extends \Piwik\Plugin\API {
     public static function getMostVisitedPages($idSite, $lastMinutes = 20)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
-		$settings = new Settings('TopPagexByVisits');
+		$settings = new Settings('TopPagesByVisits');
         $limit = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
@@ -57,7 +57,7 @@ class API extends \Piwik\Plugin\API {
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time
 				AND       llva.idsite = ?
-				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc limit ?";
+				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT ?";
         
         $pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite, $limit
