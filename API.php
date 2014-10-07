@@ -48,7 +48,7 @@ class API extends \Piwik\Plugin\API {
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('TopPagesByVisits');
-        $limit = $settings->numberOfEntries->getValue();
+        $numberOfEntries = $settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
         $sql = "SELECT    COUNT(*) AS number, llva.idaction_url, la.name AS name, la2.name AS url, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
@@ -57,10 +57,10 @@ class API extends \Piwik\Plugin\API {
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time
 				AND       llva.idsite = ?
-				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT 15";
+				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT ? ";
         
         $pages = \Piwik\Db::fetchAll($sql, array(
-            $lastMinutes+($timeZoneDiff/60), $idSite
+            $lastMinutes+($timeZoneDiff/60), $idSite, $numberOfEntries
         ));
         return $pages;
     }
