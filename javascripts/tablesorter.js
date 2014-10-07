@@ -48,7 +48,7 @@ $(function() {
         	i=1;
             $.each( data, function( index, value ){
             	name = value['name']; 
-                if (name.search(/null.+/ != -1) {
+                if (name.search(/null.+/) != -1) {
                 	alert (name);
                 	name = value['url'] 
                 }
