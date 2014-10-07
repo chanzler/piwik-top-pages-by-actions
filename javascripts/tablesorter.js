@@ -32,10 +32,10 @@ $(function() {
             	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
 
-            // schedule another request
-            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
+        // schedule another request
+        setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
         voteClick($('#table'));
     };
 
@@ -62,7 +62,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, null); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);
