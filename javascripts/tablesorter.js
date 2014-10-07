@@ -25,9 +25,7 @@ $(function() {
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
             	found = false; 
-/*            	$.each( oldData, function( oldIndex, oldValue ){
-            		if (value['idaction_url'] == oldValue['idaction_url']) found = true;
-            	}*/
+            	if ( $("#idaction"+value['idaction_url']).length ) found = true;
             	alert(found);
             	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
