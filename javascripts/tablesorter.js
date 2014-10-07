@@ -1,6 +1,6 @@
 /* jQuery sorted voting system */
 /* Provides automatic sorting and voting on elements
- * Â© Pez Cuckow 2012+
+ * Ã‚Â© Pez Cuckow 2012+
  * email@pezcuckow.com
  * Please keep attribution, including use of modified or selected code.
  * Twitter: @Pezmc
@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs) {
+    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, oldData) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -24,11 +24,16 @@ $(function() {
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
-                $("#idaction"+value['idaction_url']).find(".number").text(value['number']);
+            	found = false; 
+            	$.each( oldData, function( oldIndex, oldValue ){
+            		if (value['idaction_url'] == oldValue['idaction_url']) found = true;
+            	}
+            	alert (found);
+            	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
 
             // schedule another request
-            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
+            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000, data);
         });
         ajaxRequest.send(true);
         voteClick($('#table'));
@@ -57,7 +62,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000, data);
             });
         });
         ajaxRequest.send(true);
