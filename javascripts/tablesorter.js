@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs) {
+    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -27,8 +27,9 @@ $(function() {
             	if ( $("#idaction"+value['idaction_url']).length ) {
             		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             	} else {
-                	$( ".position").last().remove();
-                	alert($( ".position").length);
+                	if ($( ".position").length >= numberOfEntries) {
+                		$( ".position").last().remove();
+                	}
                 	name = value['name']; 
                     if (name == "null") {
                     	name = value['url'] 
@@ -38,14 +39,14 @@ $(function() {
             });
 
             // schedule another request
-            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
+            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
         voteClick($('#table'));
     };
 
     var exports = require("piwik/TopPagesByVisits");
-    exports.initTopPagesByVisitsWidget = function (refreshInterval) {
+    exports.initTopPagesByVisitsWidget = function (refreshInterval, numberOfEntries) {
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
@@ -67,7 +68,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);
