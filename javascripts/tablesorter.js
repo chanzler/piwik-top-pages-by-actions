@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, oldData = null) {
+    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -25,9 +25,9 @@ $(function() {
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
             	found = false; 
-            	$.each( oldData, function( oldIndex, oldValue ){
+/*            	$.each( oldData, function( oldIndex, oldValue ){
             		if (value['idaction_url'] == oldValue['idaction_url']) found = true;
-            	}
+            	}*/
             	alert(found);
             	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
