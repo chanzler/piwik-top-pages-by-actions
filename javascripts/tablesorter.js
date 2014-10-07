@@ -33,7 +33,7 @@ $(function() {
             });
 
             // schedule another request
-            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000, data);
+            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
         voteClick($('#table'));
@@ -62,7 +62,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs ); }, refreshAfterXSecs * 1000, data);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);
