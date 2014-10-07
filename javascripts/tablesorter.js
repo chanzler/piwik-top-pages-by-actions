@@ -101,7 +101,7 @@ $(function() {
         });
     }
 
-    function isNumber(n) {
+    function isNumberTPBV(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
 
@@ -111,7 +111,7 @@ $(function() {
         var b = $.text([b]);
         var a = $.text([a]);
 
-        if (isNumber(a) && isNumber(b)) {
+        if (isNumberTPBV(a) && isNumberTPBV(b)) {
             return parseInt(b) - parseInt(a);
         } else {
             return a.localeCompare(b);
