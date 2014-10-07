@@ -24,7 +24,7 @@ $(function() {
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
-                $("#"+value['idaction_url']).find(".number").text(value['number']);
+                $("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
 
             // schedule another request
@@ -47,7 +47,7 @@ $(function() {
         ajaxRequest.setCallback(function (data) {
         	i=1;
             $.each( data, function( index, value ){
-                $( "tbody" ).append( "<tr id=\""+value['idaction_url']+"\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+value['idaction_url']+"</td><td>"+value['time'].split(".")[0]+":"+value['time'].split(".")[1].substring(0,2)+" min.</td></tr>" );
+                $( "tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+value['name']+"</td><td>"+value['time'].split(".")[0]+":"+value['time'].split(".")[1].substring(0,2)+" min.</td></tr>" );
                 i++;
             });
             $('.demo').each(function() {

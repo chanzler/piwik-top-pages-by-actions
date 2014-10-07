@@ -49,12 +49,13 @@ class API extends \Piwik\Plugin\API {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
-        $sql = "SELECT    COUNT(*) as number, idaction_url, AVG(TIME_TO_SEC(time_spent_ref_action)/60) as time 
-				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . "
-				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time
-				AND       idsite = ?
-				GROUP BY idaction_url ORDER BY number desc limit 10";
-
+        $sql = "SELECT    COUNT(*) as number, llva.idaction_url, la.name, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
+				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . " AS llva
+				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
+				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time
+				AND       llva.idsite = ?
+				GROUP BY llva.idaction_url ORDER BY number desc limit 10";
+        
         $pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite
         ));
