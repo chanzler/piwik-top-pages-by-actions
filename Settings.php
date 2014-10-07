@@ -64,7 +64,7 @@ class Settings extends \Piwik\Plugin\Settings
         $this->numberOfEntries->uiControlAttributes = array('size' => 3);
         $this->numberOfEntries->description     = Piwik::translate('TopPagesByVisits_SettingsNumberDescription');
         $this->numberOfEntries->inlineHelp      = Piwik::translate('TopPagesByVisits_SettingsNumberHelp');
-        $this->numberOfEntries->defaultValue    = '30';
+        $this->numberOfEntries->defaultValue    = '15';
         $this->numberOfEntries->validate = function ($value, $setting) {
             if ($value > 30 && $value < 10) {
                 throw new \Exception('Value is invalid');

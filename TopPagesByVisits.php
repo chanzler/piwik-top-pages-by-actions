@@ -33,7 +33,7 @@ class TopPagesByVisits extends \Piwik\Plugin
 	
 	public function getStylesheetFiles(&$stylesheets)
 	{
-		//$stylesheets[] = "plugins/TopPagesByVisits/stylesheets/performancemonitor.css";
+		$stylesheets[] = "plugins/TopPagesByVisits/stylesheets/toppagesbyvisits.css";
 	}
 	
 	/**
