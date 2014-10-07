@@ -55,7 +55,7 @@ class API extends \Piwik\Plugin\API {
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time
 				AND       llva.idsite = ?
-				GROUP BY llva.idaction_url ORDER BY number desc limit 10";
+				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time limit 10";
         
         $pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite
