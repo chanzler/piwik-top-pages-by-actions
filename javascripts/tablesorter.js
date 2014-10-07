@@ -47,7 +47,8 @@ $(function() {
         ajaxRequest.setCallback(function (data) {
         	i=1;
             $.each( data, function( index, value ){
-                $( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+value['name']+"</td><td>"+value['time'].split(".")[0]+":"+value['time'].split(".")[1].substring(0,2)+" min.</td></tr>" );
+                if (value['name'] == "null") value['name'] = value['url']; 
+            	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+value['name']+"</td><td>"+value['time'].split(".")[0]+":"+value['time'].split(".")[1].substring(0,2)+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
