@@ -28,6 +28,7 @@ $(function() {
             		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             	} else {
                 	$( ".position").last().remove();
+                	alert($( ".position").length);
                 	name = value['name']; 
                     if (name == "null") {
                     	name = value['url'] 
