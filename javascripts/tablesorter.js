@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, oldData) {
+    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, oldData = null) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -32,10 +32,10 @@ $(function() {
             	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             });
 
+            // schedule another request
+            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
-        // schedule another request
-        setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, data); }, refreshAfterXSecs * 1000);
         voteClick($('#table'));
     };
 
@@ -62,7 +62,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, null); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);
