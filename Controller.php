@@ -29,8 +29,11 @@ class Controller extends \Piwik\Plugin\Controller
     }
     public function index()
     {
+		$settings = new Settings('TopPagexByVisits');
+
         $view = new View('@TopPagesByVisits/index.twig');
         $this->setBasicVariablesView($view);
+        $view->refreshInterval = (int)$settings->refreshInterval->getValue();
         $view->idSite = $this->idSite;
 
         return $view->render();
