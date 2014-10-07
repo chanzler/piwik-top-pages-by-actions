@@ -60,7 +60,7 @@ class API extends \Piwik\Plugin\API {
 				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc limit ?";
         
         $pages = \Piwik\Db::fetchAll($sql, array(
-            $lastMinutes+($timeZoneDiff/60), $idSite, $limit
+            $lastMinutes+($timeZoneDiff/60), $idSite, 15
         ));
         return $pages;
     }
