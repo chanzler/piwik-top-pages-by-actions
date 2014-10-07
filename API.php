@@ -49,7 +49,7 @@ class API extends \Piwik\Plugin\API {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
-        $sql = "SELECT    COUNT(*) as number, llva.idaction_url, la.name, la2.name as url, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
+        $sql = "SELECT    COUNT(*) AS number, llva.idaction_url, la.name AS name, la2.name AS url, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
 				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . " AS llva
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
