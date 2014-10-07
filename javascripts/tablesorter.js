@@ -24,10 +24,11 @@ $(function() {
         ajaxRequest.setFormat('json');
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
-            	found = false; 
-            	if ( $("#idaction"+value['idaction_url']).length ) found = true;
-            	alert(found);
-            	$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
+            	if ( $("#idaction"+value['idaction_url']).length ) {
+            		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
+            	} else {
+            		
+            	}
             });
 
             // schedule another request
