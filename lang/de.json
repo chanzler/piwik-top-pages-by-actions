@@ -1,0 +1,12 @@
+{
+    "TopPagesByVisits": {
+        "SettingsIntroduction": "Hier können Sie das Verhalten des Plugins konfigurieren.",
+        "SettingsRefreshInterval": "Aktualisierungsintervall",
+        "SettingsRefreshIntervalDescription": "Legt fest, in welchem Zeitabstand in Sekunden das Widget aktualisiert wird.",
+        "SettingsRefreshIntervalHelp": "Geben Sie eine Zahl >= 1 an",
+        "SettingsNumber": "Anzahl der anzuzeigenden Einträge",
+        "SettingsNumberDescription": "Legt fest, wie viele Einträge im Widget angezeigt werden sollen.",
+        "SettingsNumberHelp": "Geben Sie eine Zahl zwischen 10 und 30 an",
+        "WidgetName": "Meistbesuchte Seiten"
+    }
+}

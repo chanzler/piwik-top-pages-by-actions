@@ -1,0 +1,12 @@
+{
+    "TopPagesByVisits": {
+        "SettingsIntroduction": "Here you can specify the settings for this plugin.",
+        "SettingsRefreshInterval": "Refresh interval",
+        "SettingsRefreshIntervalDescription": "Defines how often the widget should be updated.",
+        "SettingsRefreshIntervalHelp": "Enter a number which is >= 1",
+        "SettingsNumber": "Number of entries to show",
+        "SettingsNumberDescription": "Defines how many entries to show in the widget.",
+        "SettingsNumberHelp": "Enter a number which is >= 10 and <= 30",
+        "WidgetName": "Bestperforming pages"
+    }
+}
