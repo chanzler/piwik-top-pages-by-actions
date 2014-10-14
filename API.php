@@ -64,7 +64,8 @@ class API extends \Piwik\Plugin\API {
             $lastMinutes+($timeZoneDiff/60), $idSite 
         ));
 		foreach ($pages as &$value) {
-			array_push($value, getPageActions($idSite, $lastMinutes, $value['idaction_url']));
+			$tempArray = API::getPageActions($idSite, $lastMinutes, $value['idaction_url']); 
+			$value['histNumber'] = $tempArray[0]['histNumber'];
 		}
 		var_dump($pages);
         return $pages;
@@ -76,7 +77,7 @@ class API extends \Piwik\Plugin\API {
 		$settings = new Settings('TopPagesByActions');
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
-        $sql = "SELECT    COUNT(*) AS number
+        $sql = "SELECT    COUNT(*) AS histNumber
 				FROM      piwik_log_link_visit_action
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time
 				AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > server_time
@@ -84,7 +85,7 @@ class API extends \Piwik\Plugin\API {
 				AND idaction_url = ?";
         
         $pagesCount = \Piwik\Db::fetchAll($sql, array(
-            (2*$lastMinutes)+($timeZoneDiff/60), $lastMinutes+($timeZoneDiff/60), $idSite. $pageId 
+            (2*$lastMinutes)+($timeZoneDiff/60), $lastMinutes+($timeZoneDiff/60), $idSite, $pageId 
         ));
         return $pagesCount;
     }
