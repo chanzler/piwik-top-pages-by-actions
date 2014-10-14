@@ -44,7 +44,7 @@ class API extends \Piwik\Plugin\API {
      * @param int $lastDays
      * @return int
      */
-    public static function getTopPagesByActions($idSite, $lastMinutes = 20)
+    public static function getTopPagesByActions($idSite, $lastMinutes = 20, $historical = false)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('TopPagesByActions');
@@ -55,13 +55,20 @@ class API extends \Piwik\Plugin\API {
 				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . " AS llva
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
-				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time
-				AND       llva.idsite = ?
+				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time " .
+				($historical)?" AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > llva.server_time" : " "
+				. " AND       llva.idsite = ?
 				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT 15 ";
         
-        $pages = \Piwik\Db::fetchAll($sql, array(
-            $lastMinutes+($timeZoneDiff/60), $idSite 
-        ));
+        if ($historical){
+	        $pages = \Piwik\Db::fetchAll($sql, array(
+	            (2*$lastMinutes)+($timeZoneDiff/60), $lastMinutes+($timeZoneDiff/60), $idSite 
+	        ));
+		} else {
+	        $pages = \Piwik\Db::fetchAll($sql, array(
+	            $lastMinutes+($timeZoneDiff/60), $idSite 
+	        ));
+		}
         return $pages;
     }
 

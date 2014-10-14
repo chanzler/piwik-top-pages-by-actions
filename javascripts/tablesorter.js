@@ -1,6 +1,6 @@
 /* jQuery sorted voting system */
 /* Provides automatic sorting and voting on elements
- * ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Pez Cuckow 2012+
+ * ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Pez Cuckow 2012+
  * email@pezcuckow.com
  * Please keep attribution, including use of modified or selected code.
  * Twitter: @Pezmc
@@ -392,12 +392,12 @@ jQuery.fn.sortElements = (function() {
             up: {
                 left: -25,
                 // Move left
-                backgroundColor: '#228b22' // Dullish green
+                backgroundColor: '#CDF9D8' // Dullish green
             },
             down: {
                 left: 25,
                 // Move right
-                backgroundColor: '#ff0000' // Dullish red
+                backgroundColor: '#FAC8CB' // Dullish red
             },
             fresh: {
                 left: 0,
