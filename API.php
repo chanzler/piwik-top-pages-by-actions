@@ -63,6 +63,10 @@ class API extends \Piwik\Plugin\API {
         $pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite 
         ));
+		foreach ($pages as &$value) {
+			array_push($value, getPageActions($idSite, $lastMinutes, $value['idaction_url']));
+		}
+		var_dump($pages);
         return $pages;
     }
 
