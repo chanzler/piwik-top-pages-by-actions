@@ -35,8 +35,10 @@ $(function() {
                     	name = value['url'] 
                     }
                     up = false;
-                    if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 20) up = true;
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+($( ".position").length+1)+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+" "+up+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) up = true;
+                    down = false;
+                	if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) down = true;
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+($( ".position").length+1)+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+" up:"+up+" down:"+down+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
             	}
             });
 
@@ -65,7 +67,11 @@ $(function() {
                 	name = value['url'] 
                 }
                 if(i <= numberOfEntries)
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                    up = false;
+                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) up = true;
+                    down = false;
+                	if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) down = true;
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+" up:"+up+" down:"+down+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
