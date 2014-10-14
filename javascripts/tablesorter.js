@@ -34,11 +34,10 @@ $(function() {
                     if (name == "null") {
                     	name = value['url'] 
                     }
-                    up = false;
-                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) up = true;
-                    down = false;
-                	if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) down = true;
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+($( ".position").length+1)+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+" up:"+up+" down:"+down+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) icon = "<img src=\"plugins/TopPagesByActions/images/uArrow.png\">";
+                	else if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
+                	else icon = "&nbsp;";
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+($( ".position").length+1)+"</td><td class=\"number\">"+value['number']+"</td><td>"+icon+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
             	}
             });
 
@@ -67,11 +66,10 @@ $(function() {
                 	name = value['url'] 
                 }
                 if(i <= numberOfEntries)
-                    up = false;
-                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) up = true;
-                    down = false;
-                	if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) down = true;
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+" up:"+up+" down:"+down+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 5) icon = "<img src=\"plugins/TopPagesByActions/images/uArrow.png\">";
+                	else if (value['histNumber']-value['number'] > (value['histNumber'] /100) * 5) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
+                	else icon = "&nbsp;";
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+i+"</td><td class=\"number\">"+value['number']+"</td><td>"+icon+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
