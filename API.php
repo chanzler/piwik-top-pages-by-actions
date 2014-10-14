@@ -58,7 +58,7 @@ class API extends \Piwik\Plugin\API {
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time 
 				AND       llva.idsite = ?
-				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT 15 ";
+				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT ". $numberOfEntries;
         
         $pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite 
@@ -66,5 +66,23 @@ class API extends \Piwik\Plugin\API {
         return $pages;
     }
 
+    public static function getPageActions($idSite, $lastMinutes = 20, $pageId)
+    {
+        \Piwik\Piwik::checkUserHasViewAccess($idSite);
+		$settings = new Settings('TopPagesByActions');
+		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
+        $sql = "SELECT    COUNT(*) AS number
+				FROM      piwik_log_link_visit_action
+				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time
+				AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > server_time
+                AND idsite = ?
+				AND idaction_url = ?";
+        
+        $pagesCount = \Piwik\Db::fetchAll($sql, array(
+            (2*$lastMinutes)+($timeZoneDiff/60), $lastMinutes+($timeZoneDiff/60), $idSite. $pageId 
+        ));
+        return $pagesCount;
+    }
+                                
 }
