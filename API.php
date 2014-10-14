@@ -67,7 +67,6 @@ class API extends \Piwik\Plugin\API {
 			$tempArray = API::getPageActions($idSite, $lastMinutes, $value['idaction_url']); 
 			$value['histNumber'] = $tempArray[0]['histNumber'];
 		}
-		var_dump($pages);
         return $pages;
     }
 
