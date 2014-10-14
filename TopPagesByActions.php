@@ -33,7 +33,7 @@ class TopPagesByActions extends \Piwik\Plugin
 	
 	public function getStylesheetFiles(&$stylesheets)
 	{
-		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/TopPagesByActions.css";
+		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/toppagesbyactions.css";
 	}
 	
 	/**
