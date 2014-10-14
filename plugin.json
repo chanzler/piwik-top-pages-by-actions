@@ -1,16 +1,27 @@
 {
- "name": "TopPagesByVisits",
- "version": "0.1.0",
- "description": "Top pages by visits",
- "theme": false,
- "require": {
-    "piwik": ">=2.7.0"
- },
- "authors": [
-     {
-         "name": "Piwik",
-         "email": "",
-         "homepage": ""
-     }
- ]
+    "name": "TopPagesByVisits",
+    "version": "0.1.0",
+    "description": "Live widget that displays the top pages by actions in a configurable minute timespan. Auto-refresh interval can be configured.",
+    "theme": false,
+    "keywords": [
+        "pages",
+        "visits",
+        "widget",
+        "live"
+    ],
+    "homepage": "http:\/\/github.com\/chanzler\/piwik-top-pages-by-visits",
+    "license": "GPL-3.0+",
+	"donate": {
+        "paypal": "paypal@familiekanzler.de"
+	},
+    "authors": [
+        {
+            "name": "Frank Kanzler",
+            "email": "frank@intersolve.de",
+            "homepage": "http:\/\/www.intersolve.de"
+        }
+    ],
+    "require": {
+        "piwik": ">=2.7.0"
+    }
 }
