@@ -34,23 +34,6 @@ $(function() {
                     if (name == "null") {
                     	name = value['url'] 
                     }
-                    var innerAjaxRequest = new ajaxHelper();
-                    innerAjaxRequest.addParams({
-                        module: 'API',
-                        method: 'TopPagesByActions.getPageActions',
-                        format: 'json',
-                        lastMinutes: 20,
-                        pageId: value['idaction_url']
-                    }, 'get');
-                    innerAjaxRequest.setFormat('json');
-                    innerAjaxRequest.setCallback(function (innerData) {
-                        $.each( innerData, function( innerIndex, innerValue ){
-                            	alert innerValue['number']; 
-                                }
-                        	}
-                        });
-                    });
-                    innerAjaxRequest.send(true);
                 	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td>"+($( ".position").length+1)+"</td><td class=\"number\">"+value['number']+"</td><td>"+name+"</td><td>"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
             	}
             });
