@@ -1,6 +1,6 @@
 /* jQuery sorted voting system */
 /* Provides automatic sorting and voting on elements
- * Ã‚Â© Pez Cuckow 2012+
+ * ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Pez Cuckow 2012+
  * email@pezcuckow.com
  * Please keep attribution, including use of modified or selected code.
  * Twitter: @Pezmc
@@ -8,7 +8,7 @@
 $(function() {
     var updating = false;
 
-    var refreshTopPagesByVisitsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
+    var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
@@ -17,7 +17,7 @@ $(function() {
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
-            method: 'TopPagesByVisits.getMostVisitedPages',
+            method: 'TopPagesByActions.getTopPagesByActions',
             format: 'json',
             lastMinutes: 20
         }, 'get');
@@ -39,18 +39,18 @@ $(function() {
             });
 
             // schedule another request
-            setTimeout(function () { refreshTopPagesByVisitsWidget(element, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
+            setTimeout(function () { refreshTopPagesByActionsWidget(element, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
         });
         ajaxRequest.send(true);
         voteClick($('#table'));
     };
 
-    var exports = require("piwik/TopPagesByVisits");
-    exports.initTopPagesByVisitsWidget = function (refreshInterval, numberOfEntries) {
+    var exports = require("piwik/TopPagesByActions");
+    exports.initTopPagesByActionsWidget = function (refreshInterval, numberOfEntries) {
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
             module: 'API',
-            method: 'TopPagesByVisits.getMostVisitedPages',
+            method: 'TopPagesByActions.getTopPagesByActions',
             format: 'json',
             lastMinutes: 20
         }, 'get');
@@ -69,7 +69,7 @@ $(function() {
             $('.tpbv').each(function() {
                 var $this = $(this),
                    refreshAfterXSecs = refreshInterval;
-                setTimeout(function() { refreshTopPagesByVisitsWidget($this, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
+                setTimeout(function() { refreshTopPagesByActionsWidget($this, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
             });
         });
         ajaxRequest.send(true);

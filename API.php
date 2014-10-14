@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
-namespace Piwik\Plugins\TopPagesByVisits;
+namespace Piwik\Plugins\TopPagesByActions;
 
 use \DateTimeZone;
 use Piwik\Settings\SystemSetting;
@@ -16,9 +16,9 @@ use Piwik\Site;
 
 
 /**
- * API for plugin PerformanceMonitor
+ * API for plugin TopPagesByActions
  *
- * @method static \Piwik\Plugins\PerformanceMonitor\API getInstance()
+ * @method static \Piwik\Plugins\TopPagesByActions\API getInstance()
  */
 class API extends \Piwik\Plugin\API {
 
@@ -44,10 +44,10 @@ class API extends \Piwik\Plugin\API {
      * @param int $lastDays
      * @return int
      */
-    public static function getMostVisitedPages($idSite, $lastMinutes = 20)
+    public static function getTopPagesByActions($idSite, $lastMinutes = 20)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
-		$settings = new Settings('TopPagesByVisits');
+		$settings = new Settings('TopPagesByActions');
         $numberOfEntries = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 

@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
-namespace Piwik\Plugins\TopPagesByVisits;
+namespace Piwik\Plugins\TopPagesByActions;
 
 use Piwik\View;
 use Piwik\Piwik;
@@ -29,9 +29,9 @@ class Controller extends \Piwik\Plugin\Controller
     }
     public function index()
     {
-		$settings = new Settings('TopPagesByVisits');
+		$settings = new Settings('TopPagesByActions');
 
-        $view = new View('@TopPagesByVisits/index.twig');
+        $view = new View('@TopPagesByActions/index.twig');
         $this->setBasicVariablesView($view);
         $view->refreshInterval = (int)$settings->refreshInterval->getValue();
         $view->numberOfEntries = (int)$settings->numberOfEntries->getValue();

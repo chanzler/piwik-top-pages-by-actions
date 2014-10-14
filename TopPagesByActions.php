@@ -6,13 +6,13 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
  *
  */
-namespace Piwik\Plugins\TopPagesByVisits;
+namespace Piwik\Plugins\TopPagesByActions;
 
 use Piwik\WidgetsList;
 
 /**
  */
-class TopPagesByVisits extends \Piwik\Plugin
+class TopPagesByActions extends \Piwik\Plugin
 {
     /**
      * @see Piwik\Plugin::getListHooksRegistered
@@ -28,12 +28,12 @@ class TopPagesByVisits extends \Piwik\Plugin
 	
 	public function getJsFiles(&$jsFiles)
 	{
-		$jsFiles[] = 'plugins/TopPagesByVisits/javascripts/tablesorter.js';
+		$jsFiles[] = 'plugins/TopPagesByActions/javascripts/tablesorter.js';
 	}
 	
 	public function getStylesheetFiles(&$stylesheets)
 	{
-		$stylesheets[] = "plugins/TopPagesByVisits/stylesheets/toppagesbyvisits.css";
+		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/TopPagesByActions.css";
 	}
 	
 	/**
@@ -41,7 +41,7 @@ class TopPagesByVisits extends \Piwik\Plugin
 	 */
 	public function addWidget()
 	{
-		WidgetsList::add( 'Live!', 'TopPagesByVisits_WidgetName', 'TopPagesByVisits', 'index');
+		WidgetsList::add( 'Live!', 'TopPagesByActions_WidgetName', 'TopPagesByActions', 'index');
 	}
 	
 }
