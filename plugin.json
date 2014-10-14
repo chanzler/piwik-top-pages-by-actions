@@ -1,7 +1,7 @@
 {
     "name": "TopPagesByActions",
     "version": "0.1.0",
-    "description": "Live widget that displays the top pages by actions in a configurable minute timespan. Auto-refresh interval can be configured.",
+    "description": "Live widget that displays the top pages by actions in a 20 minute timespan. Auto-refresh interval can be configured.",
     "theme": false,
     "keywords": [
         "pages",
@@ -9,7 +9,7 @@
         "widget",
         "live"
     ],
-    "homepage": "http:\/\/github.com\/chanzler\/piwik-top-pages-by-visits",
+    "homepage": "http:\/\/github.com\/chanzler\/piwik-top-pages-by-actions",
     "license": "GPL-3.0+",
 	"donate": {
         "paypal": "paypal@familiekanzler.de"
