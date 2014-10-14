@@ -44,9 +44,10 @@ class API extends \Piwik\Plugin\API {
      * @param int $lastDays
      * @return int
      */
-    public static function getTopPagesByActions($idSite, $lastMinutes = 20, $historical = false)
+    public static function getTopPagesByActions($idSite, $lastMinutes = 20)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
+		$historical = false;
 		$settings = new Settings('TopPagesByActions');
         $numberOfEntries = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
@@ -56,7 +57,7 @@ class API extends \Piwik\Plugin\API {
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
 				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time " .
-				($historical)?" AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > llva.server_time" : " "
+				($historical) ? " AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > llva.server_time" : " "
 				. " AND       llva.idsite = ?
 				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT 15 ";
         
