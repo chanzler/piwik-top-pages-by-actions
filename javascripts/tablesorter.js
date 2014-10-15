@@ -42,7 +42,7 @@ $(function() {
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
                 	else icon = "&nbsp;";
 					rowClass = "columnodd";
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position "+rowClass+"\"><td>"+($( ".position").length+1)+"</td><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\""+rowClass+"\">"+($( ".position").length+1)+"</td><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
             	}
             });
 
@@ -76,7 +76,7 @@ $(function() {
                 	else icon = "&nbsp;";
 					rowClass = "columnodd";
 					if (i % 2 == 0) rowClass = "columneven";
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position "+rowClass+"\"><td>"+i+"</td><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\""+rowClass+"\">"+i+"</td><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
