@@ -161,6 +161,7 @@ $(function() {
             var cell = $("td:nth-child(" + index + ")", this);
             if (parseInt(cell.text()) != position) cell.text(position); //only change if needed
             position++;
+            alert("Hallo");
         });
     }
 
@@ -405,12 +406,12 @@ jQuery.fn.sortElements = (function() {
             up: {
                 left: -25,
                 // Move left
-                backgroundColor: '#228B22' // Dullish green
+                backgroundColor: '#CDF9D8' // Dullish green
             },
             down: {
                 left: 25,
                 // Move right
-                backgroundColor: '#FF0000' // Dullish red
+                backgroundColor: '#FAC8CB' // Dullish red
             },
             fresh: {
                 left: 0,
@@ -820,9 +821,9 @@ jQuery.fn.sortElements = (function() {
                 }));
                 var innerWrapper = $(wrapper).find(".innerWrapper")[0]; //note: this seems like excessive work but there
                 //seems to be a bug with jQuery requiring it to be like this!
-                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 1, 0, ""));
+                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0.5, 0, ""));
                 if (newCell != null) {
-                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 1, ""));
+                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 0.5, ""));
                     updateValue.push([innerWrapper, $(newCell).html()]);
                 }
             }
@@ -1115,7 +1116,7 @@ NumericalStyleSubject.prototype = {
     },
     getStyle: function(state) {
         state = this.from + ((this.to - this.from) * state);
-        if (this.property == 'filter') return "alpha(opacity=" + Math.round(state * 50) + ")";
+        if (this.property == 'filter') return "alpha(opacity=" + Math.round(state * 100) + ")";
         if (this.property == 'opacity') return state;
         return Math.round(state) + this.units;
     },
