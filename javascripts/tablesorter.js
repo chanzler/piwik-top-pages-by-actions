@@ -1,6 +1,6 @@
 /* jQuery sorted voting system */
 /* Provides automatic sorting and voting on elements
- * ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Pez Cuckow 2012+
+ * ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© Pez Cuckow 2012+
  * email@pezcuckow.com
  * Please keep attribution, including use of modified or selected code.
  * Twitter: @Pezmc
@@ -405,12 +405,12 @@ jQuery.fn.sortElements = (function() {
             up: {
                 left: -25,
                 // Move left
-                backgroundColor: '#CDF9D8' // Dullish green
+                backgroundColor: '#228B22' // Dullish green
             },
             down: {
                 left: 25,
                 // Move right
-                backgroundColor: '#FAC8CB' // Dullish red
+                backgroundColor: '#FF0000' // Dullish red
             },
             fresh: {
                 left: 0,
@@ -820,9 +820,9 @@ jQuery.fn.sortElements = (function() {
                 }));
                 var innerWrapper = $(wrapper).find(".innerWrapper")[0]; //note: this seems like excessive work but there
                 //seems to be a bug with jQuery requiring it to be like this!
-                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 1, 0, ""));
+                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0.5, 0, ""));
                 if (newCell != null) {
-                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 1, ""));
+                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 0.5, ""));
                     updateValue.push([innerWrapper, $(newCell).html()]);
                 }
             }
