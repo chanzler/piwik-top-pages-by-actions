@@ -820,9 +820,9 @@ jQuery.fn.sortElements = (function() {
                 }));
                 var innerWrapper = $(wrapper).find(".innerWrapper")[0]; //note: this seems like excessive work but there
                 //seems to be a bug with jQuery requiring it to be like this!
-                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0.5, 0, ""));
+                firstAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 1, 0, ""));
                 if (newCell != null) {
-                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 0.5, ""));
+                    thirdAnimator.addSubject(new NumericalStyleSubject(innerWrapper, "opacity", 0, 1, ""));
                     updateValue.push([innerWrapper, $(newCell).html()]);
                 }
             }
@@ -1115,7 +1115,7 @@ NumericalStyleSubject.prototype = {
     },
     getStyle: function(state) {
         state = this.from + ((this.to - this.from) * state);
-        if (this.property == 'filter') return "alpha(opacity=" + Math.round(state * 100) + ")";
+        if (this.property == 'filter') return "alpha(opacity=" + Math.round(state * 50) + ")";
         if (this.property == 'opacity') return state;
         return Math.round(state) + this.units;
     },
