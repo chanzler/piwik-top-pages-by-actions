@@ -160,8 +160,11 @@ $(function() {
         $("tbody tr", table).each(function() {
             var cell = $("td:nth-child(" + index + ")", this);
             if (parseInt(cell.text()) != position) cell.text(position); //only change if needed
+            $("td:nth-child(" + index + ")", this).attr( "class", function( position, class ) {
+                if (position % 2 == 0) return class.replace(/oddcolumn/g, 'evencolumn');
+                if (position % 2 == 1) return class.replace(/evencolumn/g, 'oddcolumn');
+            });
             position++;
-            alert("Hallo");
         });
     }
 
