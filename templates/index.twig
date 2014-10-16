@@ -1,16 +1,15 @@
 <div class="tpbv">
-<table id="table" style="width:98%" class="dataTable">
-    <thead>
-        <tr>
-            <th class="anim:position sortable"><div id="thDIV" class="thDIV">#</div></th>
-            <th class="anim:constant sortable">&nbsp;</th>
-            <th class="anim:update anim:sort anim:id sortable"><div id="thDIV" class="thDIV">Aktionen</div></th>
-            <th class="anim:id sortable" style="width:100%">Seite</th>
-            <th class="anim:constant sortable">Verweildauer</th>
-        </tr>
-    </thead>
-    <tbody id="tpbv-tbody">
-    </tbody>
+<table class="isortope dataTable" style="width:100%">
+  <thead>
+    <tr style='text-align: left;'>
+      <th data-sort-type='none'>&nbsp;</th>
+      <th class="sortAsc" data-sort-type='number'>Aktionen</th>
+      <th data-sort-type='none'>Seite</th>
+      <th data-sort-type='none'>Verweildauer</th>
+    </tr>
+  </thead>
+  <tbody id="tpbv-tbody">
+  </tbody>
 </table>
 </div>
 <script type="text/javascript">$(document).ready(function () {require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});});</script>
