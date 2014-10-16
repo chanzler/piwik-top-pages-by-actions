@@ -1,23 +1,16 @@
 <div class="tpbv">
-<table id="topPagesByActions" class="isortope dataTable" style="width:100%">
-  <thead>
-    <tr style='text-align: left;'>
-      <th data-sort-type='none'>&nbsp;</th>
-      <th class="sortAsc" data-sort-type='number'>Aktionen</th>
-      <th data-sort-type='none'>Seite</th>
-      <th data-sort-type='none'>Verweildauer</th>
+<table class="tableSorter dataTable">
+    <tr>
+      <th>&nbsp;</th>
+      <th>Aktionen</th>
+      <th>Seite</th>
+      <th>Verweildauer</th>
     </tr>
-  </thead>
-  <tbody id="tpbv-tbody">
-  </tbody>
 </table>
 </div>
-<script type="text/javascript">$(document).ready(function () {require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});});</script>
-<script type='text/javascript'>
-  $('table.isortope').on('sort', function() {
-    console.log("Sort event detected");
-  });
-  $('table.isortope').on('initialized', function() {
-    console.log("Isortope initialized");
+<script type="text/javascript">
+  $(document).ready(function () {
+    require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});
+    $('table.tableSorter').tableSort();
   });
 </script>

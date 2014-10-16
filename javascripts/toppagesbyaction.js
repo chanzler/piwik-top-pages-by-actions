@@ -15,6 +15,7 @@
         ajaxRequest.setCallback(function (data) {
             $.each( data, function( index, value ){
             	if ( $("#idaction"+value['idaction_url']).length ) {
+            		$("#idaction"+value['idaction_url']).removeClass('delete');
             		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
                 	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/uArrow.png\">";
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
@@ -23,7 +24,6 @@
             	} else {
                 	if ($( ".position").length >= numberOfEntries) {
                 		$( ".position").last().remove();
-                        $('table.isortope').isortope();
                 	}
                 	name = value['name']; 
                     if (name == "null") {
@@ -33,10 +33,12 @@
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
                 	else icon = "&nbsp;";
 					rowClass = "columneven";
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
-                    $('table.isortope').isortope();
+					console.log("new item");
+					$( ".tableSorter" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+					$('table.tableSorter').tableSort();
             	}
             });
+			$.fn.tableSort.sortTable();
 
             // schedule another request
             setTimeout(function () { refreshTopPagesByActionsWidget(element, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
@@ -66,7 +68,7 @@
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
                 	else icon = "&nbsp;";
 					rowClass = "columneven";
-                	$( "#tpbv-tbody" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	$( ".tableSorter" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
@@ -76,5 +78,4 @@
             });
         });
         ajaxRequest.send(true);
-        $('table.isortope').isortope();
      };
