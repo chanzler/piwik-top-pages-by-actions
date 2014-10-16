@@ -1,5 +1,5 @@
 <div class="tpbv">
-<table class="isortope dataTable" style="width:100%">
+<table id="topPagesByActions" class="isortope dataTable" style="width:100%">
   <thead>
     <tr style='text-align: left;'>
       <th data-sort-type='none'>&nbsp;</th>
@@ -13,3 +13,11 @@
 </table>
 </div>
 <script type="text/javascript">$(document).ready(function () {require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});});</script>
+<script type='text/javascript'>
+  $('table.isortope').on('sort', function() {
+    console.log("Sort event detected");
+  });
+  $('table.isortope').on('initialized', function() {
+    console.log("Isortope initialized");
+  });
+</script>
