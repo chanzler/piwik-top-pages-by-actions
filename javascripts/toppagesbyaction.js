@@ -23,6 +23,7 @@
             	} else {
                 	if ($( ".position").length >= numberOfEntries) {
                 		$( ".position").last().remove();
+                        $('table.isortope').isortope();
                 	}
                 	name = value['name']; 
                     if (name == "null") {
