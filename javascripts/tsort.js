@@ -42,6 +42,7 @@ var sortTable;
 			var th_index_selected; // The header index that was clicked on
 			var table = $(this); // The table element we are manipulating
 			var animating = false; // Keep track of animation
+			var tsort_id_avail = false;
 			
 			/* PERFORM INITIALIZATION */
 			if (settings['rowspan'] == true) { // Fix table data cells with rowspans larger than 1
@@ -82,10 +83,10 @@ var sortTable;
 			
 			/* GET TABLE DATA */
 			function getTableData() {
-				
+
 				/* PUT TABLE DATA INTO AN OBJECT ARRAY */
 				$(table).find('tr').each(function(index) {
-					if (index > 0) $(this).addClass('tsort_id-' + (index - 1)); // Add a class to each tr that corresponds with the object id (tsortid-0)
+					if (index > 0 && !tsort_id_avail) $(this).addClass('tsort_id-' + (index - 1)); // Add a class to each tr that corresponds with the object id (tsortid-0)
 					$(this).find('td').each(function (td_index) {
 						if ($(this).is(":first-child")) {
 							table_data.push(new Object());
@@ -105,6 +106,7 @@ var sortTable;
 						}
 					});
 				});
+				tsort_id_avail = true;
 			}
 			
 			// Auto detect whether the column should be treated as text or numeric.
@@ -136,28 +138,28 @@ var sortTable;
 			$(table).css('position', 'relative');
 			
 			// Add divs for directional arrows
-			$(table).find('tr:first-child th').each(function(index) {
-				if ( sorting_criteria[index] != 'nosort' ) {
-					$('<div class="sortArrow"><div class="sortArrowAscending"></div><div class="sortArrowDescending"></div></div>').appendTo($(this));
-				}
-			});
+			//$(table).find('tr:first-child th').each(function(index) {
+			//	if ( sorting_criteria[index] != 'nosort' ) {
+			//		$('<div class="sortArrow"><div class="sortArrowAscending"></div><div class="sortArrowDescending"></div></div>').appendTo($(this));
+			//	}
+			//});
 			
 			// Set each td's width
-			$(table).find('tr:first-child th').each(function() {
-				column_widths.push($(this).outerWidth(true));
-			});
+			//$(table).find('tr:first-child th').each(function() {
+			//	column_widths.push($(this).outerWidth(true));
+			//});
 			
-			$(table).find('tr td, tr th').each(function() {
-				$(this).css( {
-					minWidth: column_widths[$(this).index()]
-				} );
-			});
+			//$(table).find('tr td, tr th').each(function() {
+			//	$(this).css( {
+			//		minWidth: column_widths[$(this).index()]
+			//	} );
+			//});
 			
 			// Set each row's height and width
-			$(table).find('tr').each(function() {
-				$(this).width($(this).outerWidth(true));
-				$(this).height($(this).outerHeight(true));
-			});
+			//$(table).find('tr').each(function() {
+			//	$(this).width($(this).outerWidth(true));
+			//	$(this).height($(this).outerHeight(true));
+			//});
 			
 			// Set table height and width
 			$(table).height($(this).outerHeight()).width($(this).outerWidth());
@@ -175,11 +177,11 @@ var sortTable;
 			});
 			
 			// Set th hover cursor to pointer
-			$(table).find('tr th').each(function(index) {
-				if (sorting_criteria[index] != 'nosort') {
-					$(this).css('cursor', 'pointer');
-				}
-			});
+			//$(table).find('tr th').each(function(index) {
+			//	if (sorting_criteria[index] != 'nosort') {
+			//		$(this).css('cursor', 'pointer');
+			//	}
+			//});
 			
 			
 			
@@ -193,14 +195,17 @@ var sortTable;
 				//}
 				
 				th_index_selected = 1;
-				if (table_data.length == 0) { // Get the table data if we haven't already
-					getTableData();
+				//if (table_data.length == 0) { // Get the table data if we haven't already
+				while(table_data.length > 0) {
+				    table_data.pop();
 				}
-				
-				if (!sorted_table_data[th_index_selected]) {	// If we haven't sorted this column yet
+				getTableData();
+				//}
+				//if (!sorted_table_data[th_index_selected]) {	// If we haven't sorted this column yet
 						sorted_table_data[th_index_selected] = table_data.concat(); // Make a copy of the original table data
 					if (sorting_criteria[th_index_selected] == 'numeric') {		// Sort numeric
 						sorted_table_data[th_index_selected].sort(function(a,b) {
+							console.log(a.td[th_index_selected]-b.td[th_index_selected]);
 							return a.td[th_index_selected] - b.td[th_index_selected];
 						});
 					} else if (sorting_criteria[th_index_selected] == 'text') { // Sort text
@@ -208,7 +213,7 @@ var sortTable;
 							return a.td[th_index_selected].localeCompare(b.td[th_index_selected]);
 						});				
 					}
-				}
+				//}
 
 				// sorting_history keeps track of all the columns the user selected to sort, and their order
 				// To also be used later for priority sorting in case two values are equal
@@ -235,8 +240,9 @@ var sortTable;
 				}
 				
 				// Call the display_table function with the data array and direction requested
-				display_table(sorted_table_data[th_index_selected], sorting_history[sorting_history.length -1]['direction']);
-				display_arrow(th_index_selected, sorting_history[sorting_history.length -1]['direction']);
+				//display_table(sorted_table_data[th_index_selected], sorting_history[sorting_history.length -1]['direction']);
+				display_table(sorted_table_data[th_index_selected], 'descending');
+				//display_arrow(th_index_selected, sorting_history[sorting_history.length -1]['direction']);
 			};
 			
 			// Display arrow direction

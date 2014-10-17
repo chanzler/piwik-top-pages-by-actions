@@ -1,16 +1,16 @@
-<div class="tpbv">
-<table class="tableSorter dataTable">
-    <tr>
-      <th>&nbsp;</th>
-      <th>Aktionen</th>
-      <th>Seite</th>
-      <th>Verweildauer</th>
+<div class="tpbv" style="width:100%">
+<table class="dataTable" style="width:100%; position:relative;">
+    <tr style="position:absolute;">
+      <th class="sortable"><div id="thDIV" class="thDIV">&nbsp;</div></th>
+      <th class="sortable"><div id="thDIV" class="thDIV">Aktionen</div></th>
+      <th class="sortable" style="width:100%"><div id="thDIV" class="thDIV">Seite</div></th>
+      <th class="sortable"><div id="thDIV" class="thDIV">Verweildauer</div></th>
     </tr>
 </table>
 </div>
 <script type="text/javascript">
   $(document).ready(function () {
     require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});
-    $('table.tableSorter').tableSort();
+    //$('table.tableSorter').tableSort();
   });
 </script>
