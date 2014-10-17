@@ -1,8 +1,13 @@
-    var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
+var settings = $.extend( {
+	rowHeight			: 25,
+});
+
+var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
             return;
         }
+		var column_widths = new Array();
 
         var ajaxRequest = new ajaxHelper();
         ajaxRequest.addParams({
@@ -18,14 +23,12 @@
             	if ( $("#idaction"+value['idaction_url']).length ) {
             		$("#idaction"+value['idaction_url']).removeClass('delete');
             		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
+            		$("#idaction"+value['idaction_url']).attr("table_pos", index);
                 	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/uArrow.png\">";
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
                 	else icon = "&nbsp;";
             		$("#idaction"+value['idaction_url']).find(".trend").html(icon);
             	} else {
-                	//if ($( ".position").length >= numberOfEntries) {
-                	//	$( ".position").last().remove();
-                	//}
                 	name = value['name']; 
                     if (name == "null") {
                     	name = value['url'] 
@@ -35,24 +38,52 @@
                 	else icon = "&nbsp;";
 					rowClass = "columneven";
 					console.log("new item");
-					$( ".tpbv table" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position pos"+index+"\" style=\"position:absolute;\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+					$( ".tpbv table" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position pos"+index+"\" content_id="+value['idaction_url']+"\" table_pos=\""+index+"\" style=\"position:absolute;\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+"</td></tr>" );
             	}
             });
 			//$.fn.tableSort.sortTable();
             $( ".delete").remove();
 
-            // Set table height and width
-            $(".tpbv table").height((data.length*30)+30).width($(this).outerWidth());
+			// Set each td's width
+            $(".tpbv table").find('tr:first-child th').each(function() {
+            	column_widths.push($(this).outerWidth(true));
+    		});
+            $(".tpbv table").find('tr td').each(function() {
+    			$(this).css( {
+    				minWidth: column_widths[$(this).index()],
+    				padding: 0
+    			} );
+            });
 
-			// Put all the rows back in place
-            var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
-            $(".tpbv table").find('tr').each(function(index) {
-            	$(this).css('top', vertical_offset);
-            	vertical_offset += 30;
+            // Set each row's height and width
+			$(".tpbv table").find('tr').each(function() {
+				//$(this).width($(this).outerWidth(true));
+				$(this).height(settings['rowHeight']);
 			});
 
+			// Set table height and width
+            $(".tpbv table").height((data.length*settings['rowHeight'])+30);
+
+			// Put all the rows back in place
+            var vertical_offset = 30; // Beginning distance of rows from the table body in pixels
+            $(".tpbv table").find('tr.position').each(function(index) {
+            	$(this).css('top', vertical_offset);
+            	vertical_offset += settings['rowHeight'];
+			});
+
+//            for (j=1; j<=data.length; j++){
+//            	$(".tpbv table").find('tr.pos'+j).css({ top: 30+(j*30) }).appendTo(".tpbv table");
+//            }
+
+			//animation
+			var vertical_offset = 30; // Beginning distance of rows from the table body in pixels
+			for ( index = 0; index < data.length; index++) {
+				$(".tpbv table").find("tr[table_pos="+index+"]").stop().delay(1 * index).animate({ top: vertical_offset}, 1000, 'swing').appendTo(".tpbv table");
+				vertical_offset += settings['rowHeight'];
+			}
             // schedule another request
             setTimeout(function () { refreshTopPagesByActionsWidget(element, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
+            
         });
         ajaxRequest.send(true);
     };
@@ -80,7 +111,7 @@
                 	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
                 	else icon = "&nbsp;";
 					rowClass = "columneven";
-                	$( ".tpbv table" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position pos"+index+"\" style=\"position:absolute;\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+" min.</td></tr>" );
+                	$( ".tpbv table" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position pos"+index+"\" content_id="+value['idaction_url']+"\" table_pos=\""+index+"\" style=\"position:absolute;\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+"</td></tr>" );
                 i++;
             });
             $('.tpbv').each(function() {
@@ -101,21 +132,21 @@
                 // Set each row's height and width
     			$(".tpbv table").find('tr').each(function() {
     				//$(this).width($(this).outerWidth(true));
-    				$(this).height($(this).outerHeight(true));
+    				$(this).height(settings['rowHeight']);
     			});
 
                 // Set table height and width
-                $(".tpbv table").height((data.length*30)+30).width($(this).outerWidth());
+                $(".tpbv table").height((data.length*settings['rowHeight'])+30).width($(this).outerWidth());
                 
     			// Put all the rows back in place
-                var vertical_offset = 0; // Beginning distance of rows from the table body in pixels
-                $(".tpbv table").find('tr').each(function(index) {
+                var vertical_offset = 30; // Beginning distance of rows from the table body in pixels
+                $(".tpbv table").find('tr.position').each(function(index) {
                 	$(this).css('top', vertical_offset);
-                	vertical_offset += 30;
+                	vertical_offset += settings['rowHeight'];
     			});
                 
-                for (j=1; j=i; j++){
-                	$(".tpbv table").find('tr.pos'+j).css({ top: 30+(j*30) }).appendTo(".tpbv table");
+                for (j=0; j<i; j++){
+                	$(".tpbv table").find('tr.pos'+j).css({ top: 30+(j*settings['rowHeight']) }).appendTo(".tpbv table");
                 }
                 setTimeout(function() { refreshTopPagesByActionsWidget($this, refreshAfterXSecs, numberOfEntries); }, refreshAfterXSecs * 1000);
             });
