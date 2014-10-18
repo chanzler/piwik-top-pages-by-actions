@@ -24,8 +24,10 @@ var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numbe
             		$("#idaction"+value['idaction_url']).removeClass('delete');
             		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             		$("#idaction"+value['idaction_url']).attr("table_pos", index);
-                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/uArrow.png\">";
-                	else if (value['histNumber']-value['number'] > (value['number'] /100) * 15) icon = "<img src=\"plugins/TopPagesByActions/images/dArrow.png\">";
+                	if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 30) icon = "<img src=\"plugins/TopPagesByActions/images/doubleUpArrow.png\">";
+                	else if (value['histNumber']-value['number'] > (value['number'] /100) * 30) icon = "<img src=\"plugins/TopPagesByActions/images/doubleDownArrow.png\">";
+                	else if (value['number']-value['histNumber'] > (value['histNumber'] /100) * 20) icon = "<img src=\"plugins/TopPagesByActions/images/upArrow.png\">";
+                	else if (value['histNumber']-value['number'] > (value['number'] /100) * 20) icon = "<img src=\"plugins/TopPagesByActions/images/downArrow.png\">";
                 	else icon = "&nbsp;";
             		$("#idaction"+value['idaction_url']).find(".trend").html(icon);
             	} else {
