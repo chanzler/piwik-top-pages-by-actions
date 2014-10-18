@@ -1,16 +1,19 @@
-<div class="tpbv" style="width:100%">
-<table class="dataTable" style="width:100%; position:relative;">
+<div class="tpbv" style="width:100%; min-height:40px">
+<table class="dataTable" style="width:100%; position:relative; table-layout: fixed;">
+    <thead>
     <tr style="position:absolute;">
-      <th class="sortable"><div id="thDIV" class="thDIV">&nbsp;</div></th>
-      <th class="sortable"><div id="thDIV" class="thDIV">Aktionen</div></th>
-      <th class="sortable" style="width:100%"><div id="thDIV" class="thDIV">Seite</div></th>
-      <th class="sortable"><div id="thDIV" class="thDIV">Verweildauer</div></th>
+      <th class="sortable" style="width:25px"><div id="thDIV" class="thDIV" style="width:25px">&nbsp;</div></th>
+      <th class="sortable" style="width:75px"><div id="thDIV" class="thDIV" style="width:75px">Aktionen</div></th>
+      <th class="sortable" style="width:100%"><div id="thDIV" class="thDIV" style="min-width:250px; width:auto">Seite</div></th>
+      <th class="sortable" style="width:105px"><div id="thDIV" class="thDIV" style="width:105px">Verweildauer</div></th>
     </tr>
+    </thead>
+    <tbody>
+    </tbody>
 </table>
 </div>
 <script type="text/javascript">
   $(document).ready(function () {
     require('piwik/TopPagesByActions').initTopPagesByActionsWidget({{ refreshInterval }}, {{ numberOfEntries }});
-    //$('table.tableSorter').tableSort();
   });
 </script>

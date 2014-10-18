@@ -1,22 +1,12 @@
-table.tableSorter th div.sortArrow {
-	width: 11px;
-	height: 6px;
-	display: inline-block;
-	margin-left: 5px;
-	vertical-align: 2px;
-	position: relative;
+td.trend {
+	width:25px;
 }
-
-table.tableSorter th div.sortArrow div.sortArrowAscending,
-table.tableSorter th div.sortArrow div.sortArrowDescending {
-	position: absolute;
-	display: none;
-	width: 11px;
-	height: 6px;
+td.number {
+	width:75px;
 }
-
-table.tableSorter th div.sortArrow div.sortArrowAscending {
+td.name {
+	width:100%;
 }
-
-table.tableSorter th div.sortArrow div.sortArrowDescending {
+td.time {
+	width:105px;
 }
