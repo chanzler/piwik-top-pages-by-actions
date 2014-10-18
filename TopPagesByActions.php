@@ -29,8 +29,6 @@ class TopPagesByActions extends \Piwik\Plugin
 	public function getJsFiles(&$jsFiles)
 	{
 		$jsFiles[] = 'plugins/TopPagesByActions/javascripts/toppagesbyaction.js';
-		$jsFiles[] = 'plugins/TopPagesByActions/javascripts/tsort.js';
-		//$jsFiles[] = 'plugins/TopPagesByActions/javascripts/jquery.isotope.min.js';
 	}
 	
 	public function getStylesheetFiles(&$stylesheets)
