@@ -52,20 +52,40 @@ class API extends \Piwik\Plugin\API {
         $numberOfEntries = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
-        $sql = "SELECT    COUNT(*) AS number, llva.idaction_url, la.name AS name, la2.name AS url, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
-				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . " AS llva
-				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
-				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
-				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time 
-				AND       llva.idsite = ?
-				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT ". $numberOfEntries;
+//        $sql = "SELECT    COUNT(*) AS number, llva.idaction_url, la.name AS name, la2.name AS url, AVG(TIME_TO_SEC(llva.time_spent_ref_action)/60) as time 
+//				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . " AS llva
+//				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la ON llva.idaction_name = la.idaction
+//				LEFT JOIN " . \Piwik\Common::prefixTable("log_action") . " AS la2 ON llva.idaction_url = la2.idaction
+//				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < llva.server_time 
+//				AND       llva.idsite = ?
+//				GROUP BY llva.idaction_url ORDER BY number desc, llva.server_time desc LIMIT ". $numberOfEntries;
         
-        $pages = \Piwik\Db::fetchAll($sql, array(
+        $sql = "SELECT    COUNT(*) AS number, idaction_url, AVG(TIME_TO_SEC(time_spent_ref_action)/60) as time, idaction_name 
+				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . "
+				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time 
+				AND       idsite = ?
+				GROUP BY idaction_url ORDER BY number desc, server_time desc LIMIT ". $numberOfEntries;
+		
+		$pages = \Piwik\Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite 
         ));
 		foreach ($pages as &$value) {
 			$tempArray = API::getPageActions($idSite, $lastMinutes, $value['idaction_url']); 
 			$value['histNumber'] = $tempArray[0]['histNumber'];
+	        if($value['idaction_name'] != 0) {
+		        $nameSql = "SELECT    name 
+						FROM      " . \Piwik\Common::prefixTable("log_action") . "
+						WHERE     idaction = ". $value['idaction_name'];
+				$name = \Piwik\Db::fetchAll($nameSql);
+				$value['name'] = $name[0]['name'];
+	        } else {
+	        	$value['name'] = "null";
+	        }
+	        $urlSql = "SELECT    name AS url
+					FROM      " . \Piwik\Common::prefixTable("log_action") . "
+					WHERE     idaction = ". $value['idaction_url'];
+	        $url = \Piwik\Db::fetchAll($urlSql);
+			$value['url'] = $url[0]['url'];
 		}
         return $pages;
     }
@@ -77,11 +97,11 @@ class API extends \Piwik\Plugin\API {
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
         $sql = "SELECT    COUNT(*) AS histNumber
-				FROM      piwik_log_link_visit_action
+				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . "
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time
-				AND DATE_SUB(NOW(), INTERVAL ? MINUTE) > server_time
-                AND idsite = ?
-				AND idaction_url = ?";
+				AND	      DATE_SUB(NOW(), INTERVAL ? MINUTE) > server_time
+                AND       idsite = ?
+				AND       idaction_url = ?";
         
         $pagesCount = \Piwik\Db::fetchAll($sql, array(
             (2*$lastMinutes)+($timeZoneDiff/60), $lastMinutes+($timeZoneDiff/60), $idSite, $pageId 
