@@ -90,7 +90,7 @@ class API extends \Piwik\Plugin\API {
         return $pages;
     }
 
-    public static function getPageActions($idSite, $lastMinutes = 20, $pageId)
+    public static function getPageActions($idSite, $lastMinutes, $pageId)
     {
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$settings = new Settings('TopPagesByActions');
