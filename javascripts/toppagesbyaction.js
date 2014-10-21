@@ -8,7 +8,9 @@ var icon = "&nbsp;";
 var refreshNumber = function (id, newNumber, actNumber) {
 	timeout = 40;
 	if(actNumber < newNumber){
-		if (newNumber-actNumber > 200) {
+		if (newNumber-actNumber > 300) {
+			timeout = 5;
+		} else if (newNumber-actNumber > 200) {
 			timeout = 10;
 		} else if (newNumber-actNumber > 50) {
 			timeout = 20;
@@ -17,7 +19,9 @@ var refreshNumber = function (id, newNumber, actNumber) {
 		}
 		actNumber++;
 	} else if(actNumber > newNumber){
-		if (actNumber-newNumber > 200) {
+		if (actNumber-newNumber > 300) {
+			timeout = 5;
+		} else if (actNumber-newNumber > 200) {
 			timeout = 10;
 		} else if (actNumber-newNumber > 50) {
 			timeout = 20;
