@@ -9,9 +9,9 @@ var refreshNumber = function (id, newNumber, actNumber) {
 	timeout = 40;
 	if(actNumber < newNumber){
 		if (newNumber-actNumber > 300) {
-			timeout = 5;
+			timeout = 1;
 		} else if (newNumber-actNumber > 200) {
-			timeout = 10;
+			timeout = 8;
 		} else if (newNumber-actNumber > 50) {
 			timeout = 20;
 		} else if (newNumber-actNumber > 20) {
@@ -20,9 +20,9 @@ var refreshNumber = function (id, newNumber, actNumber) {
 		actNumber++;
 	} else if(actNumber > newNumber){
 		if (actNumber-newNumber > 300) {
-			timeout = 5;
+			timeout = 1;
 		} else if (actNumber-newNumber > 200) {
-			timeout = 10;
+			timeout = 8;
 		} else if (actNumber-newNumber > 50) {
 			timeout = 20;
 		} else if (actNumber-newNumber > 20) {
