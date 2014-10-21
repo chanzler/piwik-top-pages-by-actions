@@ -7,9 +7,17 @@ var icon = "&nbsp;";
 
 var refreshNumber = function (id, newNumber, actNumber) {
 	if(actNumber < newNumber){
-		actNumber++;
+		if (newNumber-actNumber > 20) {
+			actNumber+=5;
+		} else {
+			actNumber++;
+		}
 	} else if(actNumber > newNumber){
-		actNumber--;
+		if (actNumber-newNumber > 20) {
+			actNumber-=5;
+		} else {
+			actNumber--;
+		}
 	}
 	$("#idaction"+id).find(".number").text(actNumber);
 	// schedule counter
