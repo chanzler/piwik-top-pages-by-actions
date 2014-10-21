@@ -6,27 +6,19 @@ var trend = [];
 var icon = "&nbsp;";
 
 var refreshNumber = function (id, newNumber, actNumber) {
-	timeout = 40;
+	timeout = 50;
 	if(actNumber < newNumber){
-		if (newNumber-actNumber > 300) {
+		if (newNumber-actNumber > 100) {
 			timeout = 1;
-		} else if (newNumber-actNumber > 200) {
-			timeout = 8;
-		} else if (newNumber-actNumber > 50) {
-			timeout = 20;
-		} else if (newNumber-actNumber > 20) {
-			timeout = 30;
+		} else if (newNumber-actNumber > 10) {
+			timeout = 10;
 		}
 		actNumber++;
 	} else if(actNumber > newNumber){
-		if (actNumber-newNumber > 300) {
+		if (actNumber-newNumber > 100) {
 			timeout = 1;
-		} else if (actNumber-newNumber > 200) {
-			timeout = 8;
-		} else if (actNumber-newNumber > 50) {
-			timeout = 20;
-		} else if (actNumber-newNumber > 20) {
-			timeout = 30;
+		} else if (actNumber-newNumber > 10) {
+			timeout = 10;
 		}
 		actNumber--;
 	}
