@@ -6,23 +6,30 @@ var trend = [];
 var icon = "&nbsp;";
 
 var refreshNumber = function (id, newNumber, actNumber) {
+	timeout = 40;
 	if(actNumber < newNumber){
-		if (newNumber-actNumber > 20) {
-			actNumber+=5;
-		} else {
-			actNumber++;
+		if (newNumber-actNumber > 200) {
+			timeout = 10;
+		} else if (newNumber-actNumber > 50) {
+			timeout = 20;
+		} else if (newNumber-actNumber > 20) {
+			timeout = 30;
 		}
+		actNumber++;
 	} else if(actNumber > newNumber){
-		if (actNumber-newNumber > 20) {
-			actNumber-=5;
-		} else {
-			actNumber--;
+		if (actNumber-newNumber > 200) {
+			timeout = 10;
+		} else if (actNumber-newNumber > 50) {
+			timeout = 20;
+		} else if (actNumber-newNumber > 20) {
+			timeout = 30;
 		}
+		actNumber--;
 	}
 	$("#idaction"+id).find(".number").text(actNumber);
 	// schedule counter
     if (actNumber != newNumber){
-    	setTimeout(function () { refreshNumber(id, newNumber, actNumber); }, 50);
+    	setTimeout(function () { refreshNumber(id, newNumber, actNumber); }, timeout);
     }
 }
 var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
