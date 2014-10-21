@@ -5,6 +5,18 @@ var history = [];
 var trend = [];
 var icon = "&nbsp;";
 
+var refreshNumber = function (id, newNumber, actNumber) {
+	if(actNumber < newNumber){
+		actNumber++;
+	} else if(actNumber > newNumber){
+		actNumber--;
+	}
+	$("#idaction"+id).find(".number").text(actNumber);
+	// schedule counter
+    if (actNumber != newNumber){
+    	setTimeout(function () { refreshNumber(id, newNumber, actNumber); }, 50);
+    }
+}
 var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numberOfEntries) {
         // if the widget has been removed from the DOM, abort
         if ($(element).parent().length == 0) {
@@ -34,15 +46,27 @@ var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numbe
             		(trend[value['idaction_url']]<=-100)?trend[value['idaction_url']]=-100:trend[value['idaction_url']]-=10;
             	else 
             		(trend[value['idaction_url']]<0)?trend[value['idaction_url']]+=1:trend[value['idaction_url']]-=1;
+        		actNumber = history[value['idaction_url']];
         		history[value['idaction_url']] = value['number'];
-        		if (trend[value['idaction_url']] < -55) icon = "<img src=\"plugins/TopPagesByActions/images/doubleDownArrow.png\">";
-            	else if (trend[value['idaction_url']] > 55) icon = "<img src=\"plugins/TopPagesByActions/images/doubleUpArrow.png\">";
-            	else if (trend[value['idaction_url']] < -25) icon = "<img src=\"plugins/TopPagesByActions/images/downArrow.png\">";
-            	else if (trend[value['idaction_url']] > 25) icon = "<img src=\"plugins/TopPagesByActions/images/upArrow.png\">";
+        		if (trend[value['idaction_url']] < -80) icon = "<img src=\"plugins/TopPagesByActions/images/doubleDownArrow.png\">";
+            	else if (trend[value['idaction_url']] > 80) icon = "<img src=\"plugins/TopPagesByActions/images/doubleUpArrow.png\">";
+            	else if (trend[value['idaction_url']] < -50) icon = "<img src=\"plugins/TopPagesByActions/images/downArrow.png\">";
+            	else if (trend[value['idaction_url']] > 50) icon = "<img src=\"plugins/TopPagesByActions/images/upArrow.png\">";
             	else icon = "&nbsp;";
             	if ( $("#idaction"+value['idaction_url']).length ) {
             		$("#idaction"+value['idaction_url']).removeClass('delete');
-            		$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
+            		//if(number=history[value['idaction_url']]>value['number']){
+            		//	for(number = history[value['idaction_url']]; number >= value['number']; number--){
+                    //		$("#idaction"+value['idaction_url']).find(".number").text(number);
+            		//	}
+            		//} else {
+            		//	for(number = history[value['idaction_url']]; number <= value['number']; number++){
+                    //		$("#idaction"+value['idaction_url']).find(".number").text(number);
+            		//	}
+            		//}
+            		refreshNumber(value['idaction_url'], value['number'], actNumber);
+            				
+            		//$("#idaction"+value['idaction_url']).find(".number").text(value['number']);
             		$("#idaction"+value['idaction_url']).attr("table_pos", index);
             		$("#idaction"+value['idaction_url']).find(".trend").html(icon);
             	} else {
