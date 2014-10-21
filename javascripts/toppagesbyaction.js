@@ -24,13 +24,13 @@ var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numbe
         	$('.position').addClass("delete");
             $.each( data, function( index, value ){
         		//calculate trend
-        		if (value['number']-history[value['idaction_url']] > (history[value['idaction_url']] /100) * 4) 
+        		if (value['number']-history[value['idaction_url']] > (history[value['idaction_url']] /100) * 2) 
         			(trend[value['idaction_url']]>=100)?trend[value['idaction_url']]=100:trend[value['idaction_url']]+=20;
-            	else if (history[value['idaction_url']]-value['number'] > (value['number'] /100) * 4) 
-            		(trend[value['idaction_url']]<=-100)?trend[value['idaction_url']]=-100:trend[value['idaction_url']]-=20;
-            	else if (value['number']-history[value['idaction_url']] > (history[value['idaction_url']] /100) * 2) 
-            		(trend[value['idaction_url']]>=100)?trend[value['idaction_url']]=100:trend[value['idaction_url']]+=10;
             	else if (history[value['idaction_url']]-value['number'] > (value['number'] /100) * 2) 
+            		(trend[value['idaction_url']]<=-100)?trend[value['idaction_url']]=-100:trend[value['idaction_url']]-=20;
+            	else if (value['number']-history[value['idaction_url']] > (history[value['idaction_url']] /100) * 1) 
+            		(trend[value['idaction_url']]>=100)?trend[value['idaction_url']]=100:trend[value['idaction_url']]+=10;
+            	else if (history[value['idaction_url']]-value['number'] > (value['number'] /100) * 1) 
             		(trend[value['idaction_url']]<=-100)?trend[value['idaction_url']]=-100:trend[value['idaction_url']]-=10;
             	else 
             		(trend[value['idaction_url']]<0)?trend[value['idaction_url']]+=1:trend[value['idaction_url']]-=1;
