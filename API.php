@@ -1,6 +1,6 @@
 <?php
 /**
- * Piwik - free/libre analytics platform
+ * Piwik -  free/libre analytics platform
  *
  * @link http://piwik.org
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
@@ -63,8 +63,8 @@ class API extends \Piwik\Plugin\API {
             $lastMinutes+($timeZoneDiff/60), $idSite 
         ));
 		foreach ($pages as &$value) {
-	        if($value['idaction_name'] != 0) {
-		        $nameSql = "SELECT    name 
+			if($value['idaction_name'] != null && $value['idaction_name'] != 0) {
+				$nameSql = "SELECT    name 
 						FROM      " . \Piwik\Common::prefixTable("log_action") . "
 						WHERE     idaction = ". $value['idaction_name'];
 				$name = \Piwik\Db::fetchAll($nameSql);
@@ -72,11 +72,15 @@ class API extends \Piwik\Plugin\API {
 	        } else {
 	        	$value['name'] = "null";
 	        }
-	        $urlSql = "SELECT    name AS url
-					FROM      " . \Piwik\Common::prefixTable("log_action") . "
-					WHERE     idaction = ". $value['idaction_url'];
-	        $url = \Piwik\Db::fetchAll($urlSql);
-			$value['url'] = $url[0]['url'];
+			if($value['idaction_url'] != null && $value['idaction_url'] != 0) {
+		        $urlSql = "SELECT    name AS url
+						FROM      " . \Piwik\Common::prefixTable("log_action") . "
+						WHERE     idaction = ". $value['idaction_url'];
+		        $url = \Piwik\Db::fetchAll($urlSql);
+				$value['url'] = $url[0]['url'];
+	        } else {
+	        	$value['url'] = "null";
+	        }
 		}
         return $pages;
     }
