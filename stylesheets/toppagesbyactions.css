@@ -10,3 +10,6 @@ td.name {
 td.time {
 	width:105px;
 }
+.dataTable tr {
+    width: 100%;
+}
