@@ -8,7 +8,7 @@ The widget will show the top performing pages of a site that auto-refreshes ever
 
 **This plugin should run fine with installations with up to 100.000 page impressions per day. If you run a very large piwik installation and have performance issues with this plugin, please contact me - there is a solution for this. I have it up and running in an installation with more than 10 million visits per day.**
 
-(Tested with piwik 2.7.0, but supposed to run with older versions)
+(Tested with piwik 2.8.3, but supposed to run with older versions)
 
 ## Installation
 

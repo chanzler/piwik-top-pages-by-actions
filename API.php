@@ -36,8 +36,7 @@ class API extends \Piwik\Plugin\API {
     		return $offset;
 	}
     /**
-     * Retrieves visit count from lastMinutes and peak visit count from lastDays
-     * in lastMinutes interval for site with idSite.
+     * Retrieves action count from last 20 minutes
      *
      * @param int $idSite
      * @param int $lastMinutes
