@@ -28,7 +28,7 @@ class TopPagesByActions extends \Piwik\Plugin
 	
 	public function getJsFiles(&$jsFiles)
 	{
-		$jsFiles[] = 'plugins/TopPagesByActions/javascripts/tablesorter.js';
+		$jsFiles[] = 'plugins/TopPagesByActions/javascripts/toppagesbyaction.js';
 	}
 	
 	public function getStylesheetFiles(&$stylesheets)
