@@ -80,8 +80,6 @@ var refreshTopPagesByActionsWidget = function (element, refreshAfterXSecs, numbe
 					$( ".tpbv table" ).append( "<tr id=\"idaction"+value['idaction_url']+"\" class=\"position pos"+index+"\" content_id="+value['idaction_url']+"\" table_pos=\""+index+"\" style=\"position:absolute;\"><td class=\"trend "+rowClass+"\">"+icon+"</td><td class=\"number "+rowClass+"\">"+value['number']+"</td><td class=\""+rowClass+"\">"+name+"</td><td class=\""+rowClass+"\">"+((value['time'] != null)?value['time'].split(".")[0]:"0")+":"+((value['time'] != null)?value['time'].split(".")[1].substring(0,2):"00")+"</td></tr>" );
             	}
             });
-            console.log(history);
-            console.log(trend);
             $( ".delete").remove();
 
 			// Set each td's width

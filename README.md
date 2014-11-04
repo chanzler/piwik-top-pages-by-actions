@@ -39,6 +39,12 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.1.2 Bugfix Release
+* removed javascript console log
+
+### 0.1.1 Bugfix Release
+* fixed css bug in internet explorer
+
 ### 0.1.0 First Beta
 * initial release
 
