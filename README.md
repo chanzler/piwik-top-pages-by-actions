@@ -41,6 +41,7 @@ Here is a list of features that are included in this project:
 
 ### 0.1.2 Bugfix Release
 * removed javascript console log
+* fixed bug with timezones that match /^UTC[+-]*/
 
 ### 0.1.1 Bugfix Release
 * fixed css bug in internet explorer
