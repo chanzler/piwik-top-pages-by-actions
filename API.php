@@ -29,7 +29,7 @@ class API extends \Piwik\Plugin\API {
         		}
     		}
 			if (preg_match("/^UTC[-+]*/", $origin_tz)){
-				echo($origin_tz);
+				return(substr($origin_tz, 3));
     		}
 			
     		$origin_dtz = new \DateTimeZone($origin_tz);
