@@ -7,6 +7,9 @@
         "SettingsNumber": "Anzahl der anzuzeigenden Einträge",
         "SettingsNumberDescription": "Legt fest, wie viele Einträge im Widget angezeigt werden sollen.",
         "SettingsNumberHelp": "Geben Sie eine Zahl zwischen 10 und 30 an",
+        "TableHeaderActions": "Aktionen",
+        "TableHeaderPage": "Seite",
+        "TableHeaderEngagedTime": "Verweildauer",
         "WidgetName": "Meistbesuchte Seiten"
     }
 }

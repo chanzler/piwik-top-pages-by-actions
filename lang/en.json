@@ -7,6 +7,9 @@
         "SettingsNumber": "Number of entries to show",
         "SettingsNumberDescription": "Defines how many entries to show in the widget.",
         "SettingsNumberHelp": "Enter a number which is >= 10 and <= 30",
+        "TableHeaderActions": "Actions",
+        "TableHeaderPage": "Page",
+        "TableHeaderEngagedTime": "EngagedTime",
         "WidgetName": "Bestperforming pages"
     }
 }
