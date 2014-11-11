@@ -1,6 +1,6 @@
 {
     "name": "TopPagesByActions",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Live widget that displays the top pages by actions in a 20 minute timespan. Auto-refresh interval can be configured.",
     "theme": false,
     "keywords": [

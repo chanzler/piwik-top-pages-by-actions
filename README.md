@@ -39,6 +39,9 @@ Here is a list of features that are included in this project:
 
 ## Changelog
 
+### 0.1.3 Bugfix Release
+* fixed english translation of table headers
+
 ### 0.1.2 Bugfix Release
 * removed javascript console log
 * fixed bug with timezones that match /^UTC[+-]*/
