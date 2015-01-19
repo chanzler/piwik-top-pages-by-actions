@@ -9,7 +9,7 @@
         "SettingsNumberHelp": "Enter a number which is >= 10 and <= 30",
         "TableHeaderActions": "Actions",
         "TableHeaderPage": "Page",
-        "TableHeaderEngagedTime": "Engaged Time",
+        "TableHeaderEngagedTime": "Avg Engaged Time",
         "WidgetName": "Top pages"
     }
 }
