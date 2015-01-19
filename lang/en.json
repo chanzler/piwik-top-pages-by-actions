@@ -1,7 +1,7 @@
 {
     "TopPagesByActions": {
         "SettingsIntroduction": "Here you can specify the settings for this plugin.",
-        "SettingsRefreshInterval": "Refresh interval",
+        "SettingsRefreshInterval": "Refresh interval (seconds)",
         "SettingsRefreshIntervalDescription": "Defines how often the widget should be updated.",
         "SettingsRefreshIntervalHelp": "Enter a number which is >= 1",
         "SettingsNumber": "Number of entries to show",
@@ -10,6 +10,6 @@
         "TableHeaderActions": "Actions",
         "TableHeaderPage": "Page",
         "TableHeaderEngagedTime": "Engaged Time",
-        "WidgetName": "Bestperforming pages"
+        "WidgetName": "Top pages"
     }
 }
