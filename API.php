@@ -18,7 +18,7 @@ use Piwik\Site;
 /**
  * API for plugin TopPagesByActions
  *
- * @method static \Piwik\Plugins\TopPagesByActions\API getInstance()
+ * @method static API getInstance()
  */
 class API extends \Piwik\Plugin\API {
 
@@ -39,20 +39,20 @@ class API extends \Piwik\Plugin\API {
     		$offset = $origin_dtz->getOffset($origin_dt) - $remote_dtz->getOffset($remote_dt);
     		return $offset;
 	}
+
     /**
      * Retrieves action count from last 20 minutes
      *
      * @param int $idSite
      * @param int $lastMinutes
-     * @param int $lastDays
-     * @return int
+     * @return array
      */
     public static function getTopPagesByActions($idSite, $lastMinutes = 20)
     {
     	
         \Piwik\Piwik::checkUserHasViewAccess($idSite);
 		$historical = false;
-		$settings = new Settings('TopPagesByActions');
+		$settings = new SystemSettings();
         $numberOfEntries = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 

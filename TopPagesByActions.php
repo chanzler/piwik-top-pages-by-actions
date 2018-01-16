@@ -14,15 +14,11 @@ use Piwik\WidgetsList;
  */
 class TopPagesByActions extends \Piwik\Plugin
 {
-    /**
-     * @see Piwik\Plugin::getListHooksRegistered
-     */
     public function getListHooksRegistered()
     {
         return array(
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
-            'WidgetsList.addWidgets' => 'addWidget',
         );
     }
 	
@@ -35,13 +31,4 @@ class TopPagesByActions extends \Piwik\Plugin
 	{
 		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/toppagesbyactions.css";
 	}
-	
-	/**
-	 * Add Widget to Live! >
-	 */
-	public function addWidget()
-	{
-		WidgetsList::add( 'Live!', 'TopPagesByActions_WidgetName', 'TopPagesByActions', 'index');
-	}
-	
 }

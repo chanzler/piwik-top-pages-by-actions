@@ -20,16 +20,9 @@ use Piwik\Settings\Manager as SettingsManager;
  */
 class Controller extends \Piwik\Plugin\Controller
 {
-
-    private function getPluginSettings()
-    {
-        $pluginsSettings = SettingsManager::getPluginSettingsForCurrentUser();
-        ksort($pluginsSettings);
-        return $pluginsSettings;
-    }
     public function index()
     {
-		$settings = new Settings('TopPagesByActions');
+		$settings = new SystemSettings();
 
         $view = new View('@TopPagesByActions/index.twig');
         $this->setBasicVariablesView($view);

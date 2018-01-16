@@ -11,9 +11,9 @@
     ],
     "homepage": "http:\/\/github.com\/chanzler\/piwik-top-pages-by-actions",
     "license": "GPL-3.0+",
-	"donate": {
+    "donate": {
         "paypal": "paypal@familiekanzler.de"
-	},
+    },
     "authors": [
         {
             "name": "Frank Kanzler",
@@ -22,6 +22,6 @@
         }
     ],
     "require": {
-        "piwik": ">=2.0.0"
+        "piwik": ">=3.3.0-stable,<4.0.0-b1"
     }
 }
