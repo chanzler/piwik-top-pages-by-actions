@@ -8,7 +8,6 @@
  */
 namespace Piwik\Plugins\TopPagesByActions;
 
-use Piwik\WidgetsList;
 
 /**
  */
