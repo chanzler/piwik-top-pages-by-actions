@@ -9,9 +9,11 @@
 
 namespace Piwik\Plugins\TopPagesByActions\Widgets;
 
-use Piwik\Plugins\TopPagesByActions\Controller;
+use Piwik\Plugins\TopPagesByActions\SystemSettings;
+use Piwik\View;
 use Piwik\Widget\Widget;
 use Piwik\Widget\WidgetConfig;
+
 
 /**
  * This class allows you to add your own widget to the Piwik platform. In case you want to remove widgets from another
@@ -28,8 +30,12 @@ class TopPagesWidget extends Widget
     }
 
     public function render() {
-        $a = new Controller();
-        return $a->index();
+        $settings = new SystemSettings();
+
+        return $this->renderTemplate('index', array(
+            'refreshInterval' => (int)$settings->refreshInterval->getValue(),
+            'numberOfEntries' => (int)$settings->numberOfEntries->getValue()
+        ));
     }
 
 }

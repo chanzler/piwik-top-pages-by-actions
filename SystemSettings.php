@@ -26,14 +26,11 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 	
     protected function init()
     {
-//        $this->setIntroduction(Piwik::translate('TopPagesByActions_SettingsIntroduction'));
-
         // System setting --> textbox converted to int defining a validator and filter
         $this->refreshInterval = $this->createRefreshIntervalSetting();
 
         // System setting --> textbox converted to int defining a validator and filter
         $this->numberOfEntries = $this->createNumberOfEntriesSetting();
-        
     }
 
     private function createRefreshIntervalSetting()
@@ -71,5 +68,4 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
             };
         });
     }
-
 }

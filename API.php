@@ -9,9 +9,9 @@
 namespace Piwik\Plugins\TopPagesByActions;
 
 use \DateTimeZone;
-use Piwik\Settings\SystemSetting;
-use Piwik\Settings\UserSetting;
-use Piwik\Settings\Manager as SettingsManager;
+use Piwik\Common;
+use Piwik\Db;
+use Piwik\Piwik;
 use Piwik\Site;
 
 
@@ -22,7 +22,7 @@ use Piwik\Site;
  */
 class API extends \Piwik\Plugin\API {
 
-	public static function get_timezone_offset($remote_tz, $origin_tz = null) {
+	private static function get_timezone_offset($remote_tz, $origin_tz = null) {
     		if($origin_tz === null) {
         		if(!is_string($origin_tz = date_default_timezone_get())) {
             			return false; // A UTC timestamp was returned -- bail out!
@@ -50,36 +50,36 @@ class API extends \Piwik\Plugin\API {
     public static function getTopPagesByActions($idSite, $lastMinutes = 20)
     {
     	
-        \Piwik\Piwik::checkUserHasViewAccess($idSite);
+        Piwik::checkUserHasViewAccess($idSite);
 		$historical = false;
 		$settings = new SystemSettings();
         $numberOfEntries = (int)$settings->numberOfEntries->getValue();
 		$timeZoneDiff = API::get_timezone_offset('UTC', Site::getTimezoneFor($idSite));
 
         $sql = "SELECT    COUNT(*) AS number, idaction_url, AVG(TIME_TO_SEC(time_spent_ref_action)/60) as time, idaction_name 
-				FROM      " . \Piwik\Common::prefixTable("log_link_visit_action") . "
+				FROM      " . Common::prefixTable("log_link_visit_action") . "
 				WHERE     DATE_SUB(NOW(), INTERVAL ? MINUTE) < server_time 
 				AND       idsite = ?
 				GROUP BY idaction_url ORDER BY number desc, server_time desc LIMIT ". $numberOfEntries;
 		
-		$pages = \Piwik\Db::fetchAll($sql, array(
+		$pages = Db::fetchAll($sql, array(
             $lastMinutes+($timeZoneDiff/60), $idSite 
         ));
 		foreach ($pages as &$value) {
 			if($value['idaction_name'] != null && $value['idaction_name'] != 0) {
 				$nameSql = "SELECT    name 
-						FROM      " . \Piwik\Common::prefixTable("log_action") . "
+						FROM      " . Common::prefixTable("log_action") . "
 						WHERE     idaction = ". $value['idaction_name'];
-				$name = \Piwik\Db::fetchAll($nameSql);
+				$name = Db::fetchAll($nameSql);
 				$value['name'] = $name[0]['name'];
 	        } else {
 	        	$value['name'] = "null";
 	        }
 			if($value['idaction_url'] != null && $value['idaction_url'] != 0) {
 		        $urlSql = "SELECT    name AS url
-						FROM      " . \Piwik\Common::prefixTable("log_action") . "
+						FROM      " . Common::prefixTable("log_action") . "
 						WHERE     idaction = ". $value['idaction_url'];
-		        $url = \Piwik\Db::fetchAll($urlSql);
+		        $url = Db::fetchAll($urlSql);
 				$value['url'] = $url[0]['url'];
 	        } else {
 	        	$value['url'] = "null";
