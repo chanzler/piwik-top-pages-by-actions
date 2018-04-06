@@ -8,21 +8,16 @@
  */
 namespace Piwik\Plugins\TopPagesByActions;
 
-use Piwik\WidgetsList;
 
 /**
  */
 class TopPagesByActions extends \Piwik\Plugin
 {
-    /**
-     * @see Piwik\Plugin::getListHooksRegistered
-     */
     public function getListHooksRegistered()
     {
         return array(
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'AssetManager.getStylesheetFiles' => 'getStylesheetFiles',
-            'WidgetsList.addWidgets' => 'addWidget',
         );
     }
 	
@@ -33,15 +28,6 @@ class TopPagesByActions extends \Piwik\Plugin
 	
 	public function getStylesheetFiles(&$stylesheets)
 	{
-		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/toppagesbyactions.css";
+		$stylesheets[] = "plugins/TopPagesByActions/stylesheets/toppagesbyactions.less";
 	}
-	
-	/**
-	 * Add Widget to Live! >
-	 */
-	public function addWidget()
-	{
-		WidgetsList::add( 'Live!', 'TopPagesByActions_WidgetName', 'TopPagesByActions', 'index');
-	}
-	
 }
